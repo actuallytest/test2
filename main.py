@@ -22,4 +22,6 @@ i += 1
 resp = requests.get(url=url + str(i))
 data = resp.json()
 st.write(data)
-st.write("Blog Post : https://sockpuppets.medium.com/bypassing-door-passwords-4004b8d7995\nSource Code : https://github.com/aydinnyunus/gateCracker\nhttps://github.com/aydinnyunus/gateCracker-REST")
+st.write("Blog Post : https://sockpuppets.medium.com/bypassing-door-passwords-4004b8d7995")
+st.write("Source Code : https://github.com/aydinnyunus/gateCracker")
+st.write("https://github.com/aydinnyunus/gateCracker-REST")
