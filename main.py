@@ -8,6 +8,8 @@ import json
 root = "https://intense-beach-04157.herokuapp.com/"
 smartlocks_url = root + 'smartLocks/'
 routers = root + 'routers/'
+ics = root + "ics/"
+web = root + "web/"
 
 st.title('Default Passwords')
 
@@ -16,14 +18,23 @@ lock_models = ["Perkotek","ERD-1120","Efes Digital Panel","Mas","AC 13PX","Burg 
 
 routers_models = []
 
+ics_models = ["Schneider M340 FTP", "Schneider M340 Web", "Schneider Premium FTP", "Schneider Premium Web", "Siemens S7-1200", "GarrettCom Magnum Switch"]
+
+web_techs = []
+
 resp = requests.get(routers)
 y = json.loads(resp.text)
-print(y[0]["brand"])
+#print(y[0]["brand"])
 for i in range(len(y)):
      routers_models.append(y[i]["brand"] + " " + y[i]["model"])
 
+resp = requests.get(web)
+y = json.loads(resp.text)
+#print(y[0]["brand"])
+for i in range(len(y)):
+     web_techs.append(y[i]["product"])
 
-option = st.sidebar.selectbox('Select view', ('Router', 'Lock'))
+option = st.sidebar.selectbox('Select view', ('Router', 'Lock', 'Industrial Control Systems', 'Web'))
 
 if option == "Router":
      st.title('Default Router Passwords')
@@ -42,6 +53,26 @@ elif option == "Lock":
      i += 1
      #st.write(smartlocks_url + str(i))
      resp = requests.get(smartlocks_url + str(i))
+     data = resp.json()
+     st.write(data)
+
+elif option == "Industrial Control Systems":
+     st.title('ICS Passwords')
+     option = st.selectbox('Select your ICS Model',ics_models)
+     i = ics_models.index(option)
+     i += 1
+     #st.write(smartlocks_url + str(i))
+     resp = requests.get(ics + str(i))
+     data = resp.json()
+     st.write(data)
+
+elif option == "Web":
+     st.title('Web Passwords')
+     option = st.selectbox('Select your Web Technology',web_techs)
+     i = web_techs.index(option)
+     i += 1
+     #st.write(smartlocks_url + str(i))
+     resp = requests.get(web + str(i))
      data = resp.json()
      st.write(data)
 
