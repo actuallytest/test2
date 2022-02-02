@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 import requests
 import json
 
@@ -10,6 +8,7 @@ smartlocks_url = root + 'smartLocks/'
 routers = root + 'routers/'
 ics = root + "ics/"
 web = root + "web/"
+ip = root + "IPcam/"
 
 st.title('Default Passwords')
 
@@ -21,6 +20,8 @@ routers_models = []
 ics_models = ["Schneider M340 FTP", "Schneider M340 Web", "Schneider Premium FTP", "Schneider Premium Web", "Siemens S7-1200", "GarrettCom Magnum Switch"]
 
 web_techs = []
+
+ip_cameras = []
 
 resp = requests.get(routers)
 y = json.loads(resp.text)
@@ -34,7 +35,13 @@ y = json.loads(resp.text)
 for i in range(len(y)):
      web_techs.append(y[i]["product"])
 
-option = st.sidebar.selectbox('Select view', ('Router', 'Lock', 'Industrial Control Systems', 'Web'))
+resp = requests.get(ip)
+y = json.loads(resp.text)
+#print(y[0]["brand"])
+for i in range(len(y)):
+     ip_cameras.append(y[i]["brand"])
+
+option = st.sidebar.selectbox('Select view', ('Router', 'Lock', 'Industrial Control Systems', 'Web', 'IP Cameras'))
 
 if option == "Router":
      st.title('Default Router Passwords')
@@ -73,6 +80,16 @@ elif option == "Web":
      i += 1
      #st.write(smartlocks_url + str(i))
      resp = requests.get(web + str(i))
+     data = resp.json()
+     st.write(data)
+
+elif option == "IP Cameras":
+     st.title('IP Camera Passwords')
+     option = st.selectbox('Select your Camera Model',ip_cameras)
+     i = ip_cameras.index(option)
+     i += 1
+     #st.write(smartlocks_url + str(i))
+     resp = requests.get(ip + str(i))
      data = resp.json()
      st.write(data)
 
