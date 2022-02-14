@@ -47,7 +47,7 @@ for i in range(len(y)):
 resp = requests.get(iot)
 y = json.loads(resp.text)
 for i in range(len(y)):
-     iot.append(y[i]["product"])
+     iots.append(y[i]["product"])
 
 option = st.sidebar.selectbox('Select view', ('Router', 'Lock', 'Industrial Control Systems', 'Web', 'IP Cameras', 'IOTs'))
 
