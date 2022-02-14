@@ -9,6 +9,7 @@ routers = root + 'routers/'
 ics = root + "ics/"
 web = root + "web/"
 ip = root + "IPcam/"
+iot = root + "IOT/"
 
 st.title('Default Passwords')
 
@@ -22,6 +23,8 @@ ics_models = ["Schneider M340 FTP", "Schneider M340 Web", "Schneider Premium FTP
 web_techs = []
 
 ip_cameras = []
+
+iot = []
 
 resp = requests.get(routers)
 y = json.loads(resp.text)
@@ -40,8 +43,13 @@ y = json.loads(resp.text)
 #print(y[0]["brand"])
 for i in range(len(y)):
      ip_cameras.append(y[i]["brand"])
+     
+resp = requests.get(iot)
+y = json.loads(resp.text)
+for i in range(len(y)):
+     iot.append(y[i]["product"])
 
-option = st.sidebar.selectbox('Select view', ('Router', 'Lock', 'Industrial Control Systems', 'Web', 'IP Cameras'))
+option = st.sidebar.selectbox('Select view', ('Router', 'Lock', 'Industrial Control Systems', 'Web', 'IP Cameras', 'IOTs'))
 
 if option == "Router":
      st.title('Default Router Passwords')
@@ -90,6 +98,16 @@ elif option == "IP Cameras":
      i += 1
      #st.write(smartlocks_url + str(i))
      resp = requests.get(ip + str(i))
+     data = resp.json()
+     st.write(data)
+     
+elif option == "IOTs":
+     st.title('IOT Passwords')
+     option = st.selectbox('Select your IOT Model',iot)
+     i = iot.index(option)
+     i += 1
+     #st.write(smartlocks_url + str(i))
+     resp = requests.get(iot + str(i))
      data = resp.json()
      st.write(data)
 
