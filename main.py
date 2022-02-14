@@ -24,7 +24,7 @@ web_techs = []
 
 ip_cameras = []
 
-iot = []
+iots = []
 
 resp = requests.get(routers)
 y = json.loads(resp.text)
@@ -103,8 +103,8 @@ elif option == "IP Cameras":
      
 elif option == "IOTs":
      st.title('IOT Passwords')
-     option = st.selectbox('Select your IOT Model',iot)
-     i = iot.index(option)
+     option = st.selectbox('Select your IOT Model',iots)
+     i = iots.index(option)
      i += 1
      #st.write(smartlocks_url + str(i))
      resp = requests.get(iot + str(i))
