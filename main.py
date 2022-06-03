@@ -3,7 +3,7 @@ import requests
 import json
 
 
-root = "https://intense-beach-04157.herokuapp.com/"
+root = "https://defaultpasswor-test.herokuapp.com/"
 smartlocks_url = root + 'smartLocks/'
 routers = root + 'routers/'
 ics = root + "ics/"
